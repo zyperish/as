@@ -14,7 +14,7 @@ AI 工作中常见的问题很固定：记忆过期、规则忘记用、服务�
 - 启动和工具 hook，把规则作为证据加载；
 - 对服务器、SSH、Docker、Nginx、数据库、破坏性 Git/本地命令做执行前检查；
 - 内置 Skill Gate，让非小任务主动调用对应 skill；
-- 用 `.gitignore`、`SECURITY.md`、发布检查避免把私人数据提交到 GitHub。
+- 用 `.gitignore`、`SECURITY.md` 和本地检查避免把私人运行态数据带进可复用模板。
 
 ## 主要功能
 
@@ -24,7 +24,7 @@ AI 工作中常见的问题很固定：记忆过期、规则忘记用、服务�
 - **Skill Gate**：按任务类型主动选择本地 skill，不只依赖聊天上下文。
 - **Obsidian 问题记录流程**：包含维护 AI 问题清单、解决记录索引、一个问题一个 md 的工作流 skill。
 - **默认不占端口**：AM 和 helper 默认走本地文件或 stdio。
-- **模板边界清晰**：运行态记忆、对话归档、审批记录、私钥和私有 Obsidian 内容默认不会进入 Git。
+- **模板边界清晰**：运行态记忆、对话归档、审批记录、私钥和私有 Obsidian 内容默认不会进入共享模板。
 
 ## 快速开始
 
@@ -73,16 +73,16 @@ AS 是放在 Codex 工作区里的模板层：
   tools/                  AM、MCP、安全和辅助工具
   server-tool-policy.json 高风险命令策略
 scripts/                  readiness、AM、viewer、preflight 脚本
-docs/                     发布检查清单
-README.md                 英文 GitHub 项目首页
+docs/                     AS 模板仓库维护者检查清单
+README.md                 英文项目说明
 README.zh-CN.md           中文说明
-SECURITY.md               禁止提交内容说明
+SECURITY.md               私有数据边界说明
 THIRD_PARTY_NOTICES.md    来源和许可证说明
 ```
 
 ## 故意不包含什么
 
-这些内容必须留在本地，不能提交到 GitHub：
+这些内容不属于可复用模板，不要复制进共享模板版本：
 
 - `.codex/memory/**`
 - `.codex/conversation-archive/**`
@@ -98,35 +98,35 @@ AS 默认只使用本地文件存储，不需要托管数据库、仪表盘或 H
 
 AS 生成的启动上下文只是给 AI 参考的证据，不高于系统、开发者和当前用户指令。
 
-敏感运维资料只有在用户明确需要时才可以保存在本地 AM，不能扩散进 GitHub、模板、可复用 Skill、Obsidian 总结或公开文档。
+敏感运维资料只有在用户明确需要时才可以保存在本地 AM，不要扩散进共享模板、可复用 Skill、Obsidian 总结或公开文档。
 
 ## 验证
 
-修改 hook、工具、skill 或策略后，运行：
+把模板复制到新工作区后，或修改 hook、工具、skill、策略后，运行：
 
 ```powershell
 node --test .codex\hooks\pre_tool_use.test.mjs
 powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Test-AS-Template.ps1
 ```
 
-发布或公开上传前，还要检查：
+如果你维护的是 AS 模板仓库本身，再检查：
 
 - `docs/PUBLISHING_CHECKLIST.md`
 - `SECURITY.md`
 - `THIRD_PARTY_NOTICES.md`
 - `git status --short --branch`
-- 适合当前环境的敏感信息扫描
+- 适合当前环境的本地敏感信息扫描
 
 ## 限制
 
 - AS 主要面向 Windows 上的本地 Codex 工作区。
 - 它不是托管记忆服务。
 - 它不能替代人的运维判断，只提供门禁、预演和验证约束。
-- 它应该作为干净模板复制使用，不应该从已经运行过的私人工作区直接导出。
+- 它应该作为干净模板复制使用，不要从已经运行过的私人工作区直接生成共享模板。
 
 ## 维护规则
 
-保持模板小而清晰。优先选择本地、no-port、可审计的流程，不要默认加入仪表盘、后台服务或大依赖。不要提交生成状态、本地凭据、大缓存、对话日志或私有项目文件。
+保持模板小而清晰。优先选择本地、no-port、可审计的流程，不要默认加入仪表盘、后台服务或大依赖。不要把生成状态、本地凭据、大缓存、对话日志或私有项目文件放进共享模板。
 
 修改安全策略或 hook 前，先运行验证命令。新增外部来源的 skill 或工作流时，更新 `THIRD_PARTY_NOTICES.md`。
 

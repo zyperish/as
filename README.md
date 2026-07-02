@@ -4,7 +4,7 @@ AS is a portable local Agent Memory template for Codex workspaces that need dura
 
 Use it when you want a new Codex workspace to remember important project facts, enforce high-risk command checks, and carry a curated set of local workflow skills from day one. AS is designed to be copied into a project as a clean starter template; it deliberately excludes private memory, credentials, chat archives, and runtime state.
 
-[????](README.zh-CN.md)
+[中文说明](README.zh-CN.md)
 
 ## Why Use It
 
@@ -14,7 +14,7 @@ Codex-style work often fails for predictable reasons: stale memory, forgotten wo
 - startup and tool hooks that load rules as evidence,
 - pre-tool checks for destructive or infrastructure commands,
 - reusable skills for memory, debugging, reviews, handoff, README writing, and workflow discipline,
-- a publishable template boundary that keeps private data out of Git history.
+- a clean template boundary that keeps private runtime data out of copied workspaces.
 
 ## Features
 
@@ -24,7 +24,7 @@ Codex-style work often fails for predictable reasons: stale memory, forgotten wo
 - **Skill Gate**: route non-trivial tasks to the matching local skill instead of relying on memory or chat context.
 - **Obsidian-compatible issue records**: include the workflow skill used to maintain AI issue lists and one-file-per-record solution notes.
 - **No default HTTP service**: AM and helper tools are local file or stdio based by default.
-- **Template hygiene**: `.gitignore`, `SECURITY.md`, and publish checks are built around not committing private runtime data.
+- **Template hygiene**: `.gitignore`, `SECURITY.md`, and local checks keep private runtime data out of the reusable template.
 
 ## Quick Start
 
@@ -73,16 +73,16 @@ AS is a template layer around a Codex workspace:
   tools/                  AM, MCP, safety, and helper tools
   server-tool-policy.json High-risk command policy
 scripts/                  Readiness, AM, viewer, and preflight helpers
-docs/                     Publishing checklist
-README.md                 English GitHub project page
+docs/                     Maintainer checklist for this template repository
+README.md                 English project page
 README.zh-CN.md           Chinese guide
-SECURITY.md               What must not be committed
+SECURITY.md               Private data boundary
 THIRD_PARTY_NOTICES.md    Source and license notes
 ```
 
 ## What Is Intentionally Excluded
 
-These files and data must stay local and must not be committed:
+These files and data are intentionally excluded from the reusable template and should not be copied into shared template versions:
 
 - `.codex/memory/**`
 - `.codex/conversation-archive/**`
@@ -98,35 +98,35 @@ AS stores memory locally by default. It does not require a hosted database, dash
 
 Startup context produced by AS is evidence for the agent, not a higher-priority instruction. System, developer, and current user instructions remain authoritative.
 
-Sensitive operational data may be stored locally only when a user explicitly needs it for work. It must not be copied into GitHub, reusable skills, templates, Obsidian summaries, or broad documentation.
+Sensitive operational data may be stored locally only when a user explicitly needs it for work. Keep it out of shared templates, reusable skills, Obsidian summaries, and broad documentation.
 
 ## Verification
 
-Run before publishing or after changing hooks, tools, skills, or policy:
+Run after copying the template into a new workspace or after changing hooks, tools, skills, or policy:
 
 ```powershell
 node --test .codex\hooks\pre_tool_use.test.mjs
 powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Test-AS-Template.ps1
 ```
 
-For release or public upload, also review:
+If you maintain this AS template repository itself, also review:
 
 - `docs/PUBLISHING_CHECKLIST.md`
 - `SECURITY.md`
 - `THIRD_PARTY_NOTICES.md`
 - `git status --short --branch`
-- a secret scan appropriate for your environment
+- a local secret scan appropriate for your environment
 
 ## Limitations
 
 - AS is optimized for local Codex workspaces on Windows.
 - It is not a hosted memory service.
 - It does not make unsafe infrastructure operations safe by itself; it provides guardrails and checks that still require operator judgment.
-- It should be copied as a clean template, not exported from an already-used private workspace.
+- Copy it as a clean starter template. Do not create a shared template from an already-used private workspace.
 
 ## Contributing and Maintenance
 
-Keep the template small. Prefer local, no-port, auditable workflows over dashboards, background services, or broad dependencies. Do not add generated state, local credentials, large caches, conversation logs, or private project files.
+Keep the template small. Prefer local, no-port, auditable workflows over dashboards, background services, or broad dependencies. Do not add generated state, local credentials, large caches, conversation logs, or private project files to shared template copies.
 
 Before changing safety policy or hooks, run the verification commands above and update `THIRD_PARTY_NOTICES.md` when adding externally sourced skills or workflows.
 

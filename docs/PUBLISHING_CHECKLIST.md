@@ -1,4 +1,6 @@
-# Publishing Checklist
+# AS Template Repository Maintainer Checklist
+
+This checklist is for maintainers of this AS template repository. It is not a required workflow for people who only copy AS into their own local Codex workspace.
 
 ## Required
 
