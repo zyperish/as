@@ -80,18 +80,6 @@ SECURITY.md               私有数据边界说明
 THIRD_PARTY_NOTICES.md    来源和许可证说明
 ```
 
-## 故意不包含什么
-
-这些内容不属于可复用模板，不要复制进共享模板版本：
-
-- `.codex/memory/**`
-- `.codex/conversation-archive/**`
-- `.codex/server-preflight/**`
-- `.codex/tmp/**`
-- SSH 私钥、密码、token、cookie、服务器 IP/账号资料
-- Obsidian 私有记录和历史工作内容
-- 项目构建产物、日志、缓存、媒体输出和运行态文件
-
 ## 安全和隐私
 
 AS 默认只使用本地文件存储，不需要托管数据库、仪表盘或 HTTP 端口。

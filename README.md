@@ -80,18 +80,6 @@ SECURITY.md               Private data boundary
 THIRD_PARTY_NOTICES.md    Source and license notes
 ```
 
-## What Is Intentionally Excluded
-
-These files and data are intentionally excluded from the reusable template and should not be copied into shared template versions:
-
-- `.codex/memory/**`
-- `.codex/conversation-archive/**`
-- `.codex/server-preflight/**`
-- `.codex/tmp/**`
-- SSH keys, passwords, tokens, cookies, server IP/account records
-- Obsidian vault content and private work history
-- project builds, logs, caches, media outputs, and generated runtime state
-
 ## Safety and Privacy
 
 AS stores memory locally by default. It does not require a hosted database, dashboard, or HTTP port.
