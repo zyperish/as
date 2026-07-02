@@ -4,6 +4,8 @@ AS is a portable local Agent Memory (AM) template for Codex-style workspaces.
 It provides local memory storage, startup context hooks, high-risk command
 guards, workflow skills, and readiness checks without requiring an HTTP server.
 
+[中文说明](README.zh-CN.md)
+
 This repository is a template. It intentionally does not include private memory,
 conversation archives, server credentials, approvals, local caches, or project
 work products.
