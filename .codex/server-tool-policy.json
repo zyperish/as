@@ -1,0 +1,75 @@
+{
+  "version": 1,
+  "approvalDir": ".codex/server-preflight/approvals",
+  "auditDir": ".codex/server-preflight/audit",
+  "riskPatterns": [
+    "(?<![\\w.-])ssh(?:\\.exe)?(?![\\w.-])",
+    "(?<![\\w.-])scp(?:\\.exe)?(?![\\w.-])",
+    "(?<![\\w.-])sftp(?:\\.exe)?(?![\\w.-])",
+    "(?<![\\w.-])rsync(?:\\.exe)?(?![\\w.-])",
+    "(?<![\\w.-])docker(?:\\.exe)?(?![\\w.-])",
+    "(?<![\\w.-])docker-compose(?:\\.exe)?(?![\\w.-])",
+    "(?<![\\w.-])systemctl(?![\\w.-])",
+    "(?<![\\w.-])service(?![\\w.-])",
+    "(?<![\\w.-])nginx(?![\\w.-])",
+    "(?<![\\w.-])certbot(?![\\w.-])",
+    "(?<![\\w.-])ufw(?![\\w.-])",
+    "(?<![\\w.-])iptables(?![\\w.-])",
+    "(?<![\\w.-])firewall-cmd(?![\\w.-])",
+    "(?<![\\w.-])kubectl(?![\\w.-])",
+    "(?<![\\w.-])helm(?![\\w.-])",
+    "(?<![\\w.-])mysql(?![\\w.-])",
+    "(?<![\\w.-])psql(?![\\w.-])",
+    "(?<![\\w.-])mongosh(?![\\w.-])",
+    "(?<![\\w.-])redis-cli(?![\\w.-])",
+    "(?<![\\w.-])pm2(?![\\w.-])",
+    "(?<![\\w.-])supervisorctl(?![\\w.-])"
+  ],
+  "allowLocalInfoPatterns": [
+    "^\\s*ssh(?:\\.exe)?\\s+-(?:V|h|-version|-help)\\s*$",
+    "^\\s*docker(?:\\.exe)?\\s+(?:--version|version|help)\\s*$",
+    "^\\s*kubectl\\s+(?:version\\s+--client|help)\\s*$"
+  ],
+  "absoluteDenyPatterns": [
+    {
+      "id": "delete-root",
+      "pattern": "(?i)(?:^|[\\s\"'])rm\\s+(?:-[^\\s\"']*[rf][^\\s\"']*[rf][^\\s\"']*|-[^\\s\"']*r[^\\s\"']*\\s+-[^\\s\"']*f[^\\s\"']*|-[^\\s\"']*f[^\\s\"']*\\s+-[^\\s\"']*r[^\\s\"']*)\\s+/(?:\\s|$|[\"'])",
+      "reason": "禁止递归强制删除根目录。"
+    },
+    {
+      "id": "delete-ssh-config",
+      "pattern": "(?i)(?:^|[\\s\"'])(?:rm|mv|truncate)\\b[^\\n;&|]*(?:/etc/ssh|/root/\\.ssh|~/.ssh|authorized_keys|sshd_config)",
+      "reason": "禁止直接删除或破坏 SSH 配置与密钥入口。"
+    },
+    {
+      "id": "flush-firewall",
+      "pattern": "(?i)(?:iptables\\s+-F|ufw\\s+disable|firewall-cmd\\b[^\\n;&|]*--complete-reload)",
+      "reason": "禁止直接清空或关闭防火墙。"
+    },
+    {
+      "id": "drop-database",
+      "pattern": "(?i)\\b(drop\\s+database|drop\\s+schema|drop\\s+table|flushall|flushdb)\\b",
+      "reason": "禁止直接执行破坏性数据库清理。"
+    },
+    {
+      "id": "format-disk",
+      "pattern": "(?i)(?:^|[\\s\"'])(?:mkfs(?:\\.[a-z0-9]+)?|wipefs|parted|fdisk|dd)\\b[^\\n;&|]*(?:/dev/sd|/dev/vd|/dev/nvme|of=/dev/)",
+      "reason": "禁止格式化、擦除或直接写入磁盘设备。"
+    },
+    {
+      "id": "windows-recursive-delete",
+      "pattern": "(?i)(?:^|[\\s\"'])(?:Remove-Item|rm|del|erase|rmdir|rd)\\b(?=[^\\n;&|]*(?:-Recurse|-r|/s)\\b)(?=[^\\n;&|]*(?:-Force|-fo|/q)\\b)[^\\n;&|]*",
+      "reason": "禁止未审批的 Windows 递归强制删除。"
+    },
+    {
+      "id": "git-destructive-reset",
+      "pattern": "(?i)(?:^|[\\s\"'])git\\s+(?:reset\\s+--hard|clean\\s+(?![^\\n;&|]*(?:--dry-run\\b|-n\\b|-[A-Za-z]*n[A-Za-z]*\\b))-[^\\n;&|]*[fdx])\\b",
+      "reason": "禁止未审批的破坏性 Git 重置或清理。"
+    },
+    {
+      "id": "powershell-stop-security",
+      "pattern": "(?i)(?:^|[\\s\"'])(?:Set-ExecutionPolicy\\s+Unrestricted|Stop-Service\\s+[^\\n;&|]*(?:WinDefend|MpsSvc)|Set-MpPreference\\s+[^\\n;&|]*DisableRealtimeMonitoring\\s+\\$?true)",
+      "reason": "禁止关闭本机安全边界或降低执行策略。"
+    }
+  ]
+}

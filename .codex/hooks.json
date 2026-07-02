@@ -1,0 +1,77 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|resume",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -File \".codex\\hooks\\run-agentmemory-hook.ps1\" -Script \"session-start.mjs\"",
+            "statusMessage": "agentmemory: loading local context"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -File \".codex\\hooks\\read-rules-and-memory.ps1\" -Limit 0 -Fast",
+            "statusMessage": "Reading compact local context"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -File \".codex\\hooks\\run-python-hook.ps1\" -Hook \"pre_tool_use.py\"",
+            "statusMessage": "Checking high-risk tool use"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -File \".codex\\hooks\\archive-conversation.ps1\" -Channel \"desktop\"",
+            "timeout": 30
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -File \".codex\\hooks\\run-agentmemory-hook.ps1\" -Script \"stop.mjs\""
+          }
+        ]
+      }
+    ],
+    "PreCompact": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -File \".codex\\hooks\\run-agentmemory-hook.ps1\" -Script \"pre-compact.mjs\""
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -File \".codex\\hooks\\archive-conversation.ps1\" -Channel \"desktop\"",
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  }
+}

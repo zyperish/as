@@ -1,0 +1,14 @@
+{
+  "title": "Obsidian AI 记录工作流规则",
+  "content": "涉及 AI 问题、Obsidian 记录、吸纳总结或 AM 进步点总结时，必须使用 obsidian-am-issue-writer：写清单、独立记录、索引总数、验证后打勾，并按需写入 AM。",
+  "type": "workflow",
+  "importance": "high",
+  "confidence": "high",
+  "reusable": true,
+  "concepts": ["Obsidian", "AI问题记录", "AM联动", "Skill约束"],
+  "files": ["<相关文件路径>"],
+  "source": {
+    "kind": "local",
+    "path": "<来源路径>"
+  }
+}

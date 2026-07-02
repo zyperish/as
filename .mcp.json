@@ -1,0 +1,19 @@
+{
+  "mcpServers": {
+    "agentmemory": {
+      "command": "powershell",
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        ".codex\\start-agentmemory-mcp.ps1"
+      ],
+      "env": {
+        "AGENTMEMORY_INJECT_CONTEXT": "false",
+        "AGENTMEMORY_AUTO_COMPRESS": "false"
+      }
+    }
+  }
+}
+
