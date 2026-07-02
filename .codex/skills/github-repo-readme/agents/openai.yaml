@@ -1,0 +1,4 @@
+interface:
+  display_name: "GitHub README"
+  short_description: "Write GitHub-ready repository READMEs"
+  default_prompt: "Use $github-repo-readme to rewrite this repository README for GitHub."

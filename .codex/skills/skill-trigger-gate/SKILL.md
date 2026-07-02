@@ -26,6 +26,7 @@ Do not wait for the user to name a skill. If the task matches a trigger below, r
 - Architecture context before editing unfamiliar systems: use `matt-zoom-out`.
 - Stopping, interruption, handoff, or continuation note: use `matt-handoff`.
 - Third-party repo, framework, tool, skill pack, MCP, or deployment candidate audit: use `third-party-project-audit`; for local skill catalogs use `skill-catalog-audit`.
+- Publishing to GitHub, creating or rewriting a repository README, improving a GitHub project page, or user says the GitHub repo/readme is poor: use `github-repo-readme`.
 - Prompt improvement: use `prompt-optimizer-lite`.
 - Product/feature requirements or vertical implementation slicing: use `prd`, `context-and-adr-planning`, or `vertical-slice-planning` as appropriate.
 - Video, voiceover-to-video, Remotion, web presentation: use `web-video-presentation`; add `remotion-best-practices` for Remotion.

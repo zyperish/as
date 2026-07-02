@@ -9,6 +9,7 @@ Known references include:
 - mattpocock/skills sourced skills marked with `license: MIT`.
 - DietrichGebert/ponytail inspired minimalism workflow.
 - affaan-m/ECC inspired agent architecture audit workflow; local version is Markdown-only.
+- GitHub Docs and `github/awesome-copilot` create-readme workflow inspired the local `github-repo-readme` guidance.
 - Local-original workflow skills marked `source: local-original-workflow`.
 
 Before publishing a fork with additional skills, keep the same rule: include
