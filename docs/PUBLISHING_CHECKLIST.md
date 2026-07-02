@@ -1,6 +1,6 @@
-# AS Template Repository Maintainer Checklist
+# AMP Template Repository Maintainer Checklist
 
-This checklist is for maintainers of this AS template repository. It is not a required workflow for people who only copy AS into their own local Codex workspace.
+This checklist is for maintainers of this AMP template repository. It is not a required workflow for people who only copy AMP into their own local Codex workspace.
 
 ## Required
 
@@ -18,7 +18,7 @@ This checklist is for maintainers of this AS template repository. It is not a re
 
 ```powershell
 node --test .codex\hooks\pre_tool_use.test.mjs
-powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Test-AS-Template.ps1
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Test-AMP-Template.ps1
 ```
 
 ## Manual Review

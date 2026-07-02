@@ -1,14 +1,14 @@
-# AS
+# AMP
 
-AS 是一个给 Codex 工作区使用的本地 Agent Memory 模板。它在不启动托管服务、数据库、仪表盘或 HTTP 端口的情况下，为新工作区提供长期记忆、安全门禁、工作流 Skill 和可复用交接习惯。
+AMP（Agent Memory Plus）是一个给 Codex 工作区使用的本地 Agent Memory 模板。它在不启动托管服务、数据库、仪表盘或 HTTP 端口的情况下，为新工作区提供长期记忆、安全门禁、工作流 Skill 和可复用交接习惯。
 
-当你希望后续 AI 会话能记住项目事实、加载本地规则、主动选择正确 Skill，并在执行高风险运维命令前停下来预演时，可以使用 AS。它适合作为干净模板复制到一个 Codex 工作区根目录。
+当你希望后续 AI 会话能记住项目事实、加载本地规则、主动选择正确 Skill，并在执行高风险运维命令前停下来预演时，可以使用 AMP。它适合作为干净模板复制到一个 Codex 工作区根目录。
 
 [English README](README.md)
 
-## AS 是什么
+## AMP 是什么
 
-AS 不是 AI 模型，不是托管记忆产品，也不是 SaaS 后端。它是一个本地工作区模板，主要由这些部分组成：
+AMP 不是 AI 模型，不是托管记忆产品，也不是 SaaS 后端。它是一个本地工作区模板，主要由这些部分组成：
 
 - Codex hook 配置；
 - 本地文件型记忆存储；
@@ -17,7 +17,7 @@ AS 不是 AI 模型，不是托管记忆产品，也不是 SaaS 后端。它是�
 - 可复用本地 Skill；
 - 维护模板安全边界的文档。
 
-更准确地说，AS 是“AI 工作区记忆和工作流脚手架”：它给 AI 一个本地运行秩序，让 AI 在项目里能记住、检查、预演、交接。
+更准确地说，AMP 是“AI 工作区记忆增强和工作流脚手架”：它给 AI 一个本地运行秩序，让 AI 在项目里能记住、检查、预演、交接。
 
 ## 为什么要用
 
@@ -30,7 +30,7 @@ AI 写代码或运维时，常见失败模式很固定：
 - 交接记录太粗，下一轮无法安全继续；
 - 中文 Markdown 或记忆 payload 被 shell 编码写坏。
 
-AS 把这些问题对应的本地规则和工具打包在一起。复制到新工作区后，AI 从第一天就有记忆、检查、门禁和工作流约束。
+AMP 把这些问题对应的本地规则和工具打包在一起。复制到新工作区后，AI 从第一天就有记忆、检查、门禁和工作流约束。
 
 ## 你会得到什么
 
@@ -61,7 +61,7 @@ AS 把这些问题对应的本地规则和工具打包在一起。复制到新�
 然后运行模板检查：
 
 ```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Test-AS-Template.ps1
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Test-AMP-Template.ps1
 ```
 
 这个检查会验证 Node 语法、hook 测试、AM 状态、运行态目录是否干净、`.gitignore` 是否覆盖运行态目录，以及文档是否 UTF-8 干净。
@@ -106,7 +106,7 @@ node .codex\tools\am-first.mjs viewer --project-root .
 
 ## 一次正常任务怎么跑
 
-AS 引导下的一次任务通常是这样：
+AMP 引导下的一次任务通常是这样：
 
 1. **Start**：先用 `am-first start` 带当前任务查询本地记忆。
 2. **选 Skill**：`skill-trigger-gate` 判断这类任务应该使用哪个本地 Skill。
@@ -118,7 +118,7 @@ AS 引导下的一次任务通常是这样：
 
 ## 高风险命令流程
 
-AS 不能替代人的运维判断。它做的是让 AI 在危险命令前停下来，把影响和回滚讲清楚。
+AMP 不能替代人的运维判断。它做的是让 AI 在危险命令前停下来，把影响和回滚讲清楚。
 
 当命令匹配 `.codex/server-tool-policy.json` 中的风险规则时，pre-tool hook 会检查有没有“精确命令、未过期、未使用”的审批文件。没有审批就阻断。
 
@@ -173,14 +173,14 @@ AS 不能替代人的运维判断。它做的是让 AI 在危险命令前停下�
 .codex/skills/
   本地工作流 Skill，包括调试、审查、AM 维护、交接、README 写作、CCOW 协作、Obsidian 记录等。
 
-scripts/Test-AS-Template.ps1
+scripts/Test-AMP-Template.ps1
   复制模板后的 readiness 检查。
 
 scripts/Invoke-ServerPreflight.ps1
   为高风险命令创建精确审批。
 
 docs/PUBLISHING_CHECKLIST.md
-  AS 模板仓库维护者检查清单。
+  AMP 模板仓库维护者检查清单。
 ```
 
 ## 仓库结构
@@ -192,7 +192,7 @@ docs/PUBLISHING_CHECKLIST.md
   tools/                  AM、MCP、安全和辅助工具
   server-tool-policy.json 高风险命令策略
 scripts/                  readiness、AM、viewer、preflight 脚本
-docs/                     AS 模板仓库维护者检查清单
+docs/                     AMP 模板仓库维护者检查清单
 README.md                 英文项目说明
 README.zh-CN.md           中文说明
 SECURITY.md               私有数据边界说明
@@ -201,9 +201,9 @@ THIRD_PARTY_NOTICES.md    来源和许可证说明
 
 ## 安全和隐私
 
-AS 默认只使用本地文件存储，不需要托管数据库、仪表盘或 HTTP 端口。
+AMP 默认只使用本地文件存储，不需要托管数据库、仪表盘或 HTTP 端口。
 
-AS 生成的启动上下文只是给 AI 参考的证据，不高于系统、开发者和当前用户指令。
+AMP 生成的启动上下文只是给 AI 参考的证据，不高于系统、开发者和当前用户指令。
 
 敏感运维资料只有在用户明确需要时才可以保存在本地 AM，不要扩散进共享模板、可复用 Skill、Obsidian 总结或公开文档。
 
@@ -211,7 +211,7 @@ AS 生成的启动上下文只是给 AI 参考的证据，不高于系统、开�
 
 ## 常见问题
 
-**`Test-AS-Template.ps1` 的 Node 语法检查失败**
+**`Test-AMP-Template.ps1` 的 Node 语法检查失败**
 
 确认当前 shell 里能直接运行 `node`。
 
@@ -225,7 +225,7 @@ AS 生成的启动上下文只是给 AI 参考的证据，不高于系统、开�
 
 **中文显示乱码**
 
-按 UTF-8 读取文件，不要用 PowerShell 默认重定向写中文 Markdown。运行 `Test-AS-Template.ps1`，里面包含 UTF-8 和 mojibake 检查。
+按 UTF-8 读取文件，不要用 PowerShell 默认重定向写中文 Markdown。运行 `Test-AMP-Template.ps1`，里面包含 UTF-8 和 mojibake 检查。
 
 **MCP helper 起不来**
 
@@ -237,10 +237,10 @@ AS 生成的启动上下文只是给 AI 参考的证据，不高于系统、开�
 
 ```powershell
 node --test .codex\hooks\pre_tool_use.test.mjs
-powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Test-AS-Template.ps1
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Test-AMP-Template.ps1
 ```
 
-如果你维护的是 AS 模板仓库本身，再检查：
+如果你维护的是 AMP 模板仓库本身，再检查：
 
 - `docs/PUBLISHING_CHECKLIST.md`
 - `SECURITY.md`
@@ -250,7 +250,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Test-AS-Template.p
 
 ## 限制
 
-- AS 主要面向 Windows 上的本地 Codex 工作区。
+- AMP 主要面向 Windows 上的本地 Codex 工作区。
 - 它不是托管记忆服务。
 - 它不能替代人的生产运维判断。
 - 它不会自动保证旧记忆正确；当前证据仍然优先。

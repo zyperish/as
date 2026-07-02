@@ -1,14 +1,14 @@
-# AS
+# AMP
 
-AS is a portable local Agent Memory template for Codex workspaces. It gives a new workspace durable memory, safety gates, workflow skills, and repeatable handoff habits without requiring a hosted service, database, dashboard, or HTTP port.
+AMP (Agent Memory Plus) is a portable local Agent Memory template for Codex workspaces. It gives a new workspace durable memory, safety gates, workflow skills, and repeatable handoff habits without requiring a hosted service, database, dashboard, or HTTP port.
 
-Use AS when you want future AI sessions in a project to remember durable facts, load local rules, choose the right workflow skill, and stop before risky infrastructure commands. It is meant to be copied into a workspace as a clean starter layer.
+Use AMP when you want future AI sessions in a project to remember durable facts, load local rules, choose the right workflow skill, and stop before risky infrastructure commands. It is meant to be copied into a workspace as a clean starter layer.
 
 [中文说明](README.zh-CN.md)
 
-## What AS Is
+## What AMP Is
 
-AS is not an AI model, hosted memory product, or SaaS backend. It is a local workspace template made of:
+AMP is not an AI model, hosted memory product, or SaaS backend. It is a local workspace template made of:
 
 - Codex hook configuration,
 - a file-backed local memory store,
@@ -30,7 +30,7 @@ AI coding sessions tend to fail in repeatable ways:
 - handoff notes are too vague to resume safely,
 - Chinese Markdown or memory payloads get corrupted by shell encoding.
 
-AS packages local rules and tools that reduce those failures. A copied workspace can start with memory, checks, and workflows already wired together.
+AMP packages local rules and tools that reduce those failures. A copied workspace can start with memory, checks, and workflows already wired together.
 
 ## What You Get
 
@@ -61,7 +61,7 @@ Copy the template files into the root of the Codex workspace you want to upgrade
 Then run the template check:
 
 ```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Test-AS-Template.ps1
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Test-AMP-Template.ps1
 ```
 
 The check verifies Node syntax, hook tests, AM status, runtime directory hygiene, `.gitignore` coverage, and UTF-8 cleanliness.
@@ -106,7 +106,7 @@ node .codex\tools\am-first.mjs viewer --project-root .
 
 ## Normal Work Session
 
-A typical AS-guided task looks like this:
+A typical AMP-guided task looks like this:
 
 1. **Start**: run `am-first start` with the current task so the agent can retrieve relevant local memory.
 2. **Choose skills**: `skill-trigger-gate` decides which local skill should guide the work.
@@ -118,7 +118,7 @@ A typical AS-guided task looks like this:
 
 ## High-Risk Command Flow
 
-AS does not make infrastructure operations safe by itself. It forces a pause before risky commands so the operator and agent can reason about impact.
+AMP does not make infrastructure operations safe by itself. It forces a pause before risky commands so the operator and agent can reason about impact.
 
 When a command matches `.codex/server-tool-policy.json`, the pre-tool hook checks for an exact, unexpired, unused approval. If there is no approval, the command is blocked.
 
@@ -173,14 +173,14 @@ Review the generated `.mcp.json` before use. Do not add background services, das
 .codex/skills/
   Local workflow skills for debugging, review, memory maintenance, handoff, README writing, CCOW orchestration, Obsidian records, and more.
 
-scripts/Test-AS-Template.ps1
+scripts/Test-AMP-Template.ps1
   Readiness check for the copied template.
 
 scripts/Invoke-ServerPreflight.ps1
   Creates exact-command approvals for high-risk commands.
 
 docs/PUBLISHING_CHECKLIST.md
-  Maintainer checklist for this AS template repository.
+  Maintainer checklist for this AMP template repository.
 ```
 
 ## Repository Layout
@@ -201,9 +201,9 @@ THIRD_PARTY_NOTICES.md    Source and license notes
 
 ## Safety And Privacy
 
-AS stores memory locally by default. It does not require a hosted database, dashboard, or HTTP port.
+AMP stores memory locally by default. It does not require a hosted database, dashboard, or HTTP port.
 
-Startup context produced by AS is evidence for the agent, not a higher-priority instruction. System, developer, and current user instructions remain authoritative.
+Startup context produced by AMP is evidence for the agent, not a higher-priority instruction. System, developer, and current user instructions remain authoritative.
 
 Sensitive operational data may be stored locally only when a user explicitly needs it for work. Keep it out of shared templates, reusable skills, Obsidian summaries, and broad documentation.
 
@@ -211,7 +211,7 @@ For repository security rules, see `SECURITY.md`.
 
 ## Troubleshooting
 
-**`Test-AS-Template.ps1` fails on Node syntax**
+**`Test-AMP-Template.ps1` fails on Node syntax**
 
 Check that Node.js is installed and available as `node` in the current shell.
 
@@ -225,7 +225,7 @@ Use a narrower query with `am-first start` or direct recall, and prefer current 
 
 **Chinese text looks corrupted**
 
-Read files as UTF-8 and avoid writing Chinese Markdown through default PowerShell redirection. Run `Test-AS-Template.ps1`; it includes UTF-8 and mojibake checks.
+Read files as UTF-8 and avoid writing Chinese Markdown through default PowerShell redirection. Run `Test-AMP-Template.ps1`; it includes UTF-8 and mojibake checks.
 
 **MCP helpers do not start**
 
@@ -237,10 +237,10 @@ Run after copying the template into a new workspace or after changing hooks, too
 
 ```powershell
 node --test .codex\hooks\pre_tool_use.test.mjs
-powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Test-AS-Template.ps1
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Test-AMP-Template.ps1
 ```
 
-If you maintain this AS template repository itself, also review:
+If you maintain this AMP template repository itself, also review:
 
 - `docs/PUBLISHING_CHECKLIST.md`
 - `SECURITY.md`
@@ -250,7 +250,7 @@ If you maintain this AS template repository itself, also review:
 
 ## Limitations
 
-- AS is optimized for local Codex workspaces on Windows.
+- AMP is optimized for local Codex workspaces on Windows.
 - It is not a hosted memory service.
 - It does not replace operator judgment for production infrastructure.
 - It does not automatically make old memory correct; current evidence still wins.

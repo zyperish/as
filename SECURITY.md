@@ -16,5 +16,5 @@ Before changing `.codex/server-tool-policy.json`, run:
 
 ```powershell
 node --test .codex\hooks\pre_tool_use.test.mjs
-powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Test-AS-Template.ps1
+powershell -NoProfile -ExecutionPolicy Bypass -File .\scripts\Test-AMP-Template.ps1
 ```
